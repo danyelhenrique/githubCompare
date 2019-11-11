@@ -4,7 +4,7 @@ import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 
-import { Container, Form, SubmnitBtn } from './styles';
+import { Container, Form, SubmnitBtn, List } from './styles';
 
 function Main() {
     const [getRepo, setGetRepo] = useState('');
@@ -54,6 +54,15 @@ function Main() {
                     )}
                 </SubmnitBtn>
             </Form>
+
+            <List>
+                {repoData.map(repository => (
+                    <li key={repository.name}>
+                        <span>{repository.name}</span>
+                        <a href="#">Details</a>
+                    </li>
+                ))}
+            </List>
         </Container>
     );
 }
