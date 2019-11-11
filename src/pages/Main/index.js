@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
@@ -10,6 +10,20 @@ function Main() {
     const [getRepo, setGetRepo] = useState('');
     const [repoData, setRepoData] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const repositories = localStorage.getItem('@repositories');
+
+        if (repositories) {
+            setRepoData(JSON.parse(repositories));
+        }
+    }, []);
+
+    useEffect(() => {
+        const repoItems = JSON.stringify(repoData);
+
+        localStorage.setItem('@repositories', repoItems);
+    }, [repoData]);
 
     const handleInputChange = e => {
         setGetRepo(e.target.value);
@@ -59,7 +73,7 @@ function Main() {
                 {repoData.map(repository => (
                     <li key={repository.name}>
                         <span>{repository.name}</span>
-                        <a href="#">Details</a>
+                        <a href="/#">Details</a>
                     </li>
                 ))}
             </List>
