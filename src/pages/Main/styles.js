@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 export const Container = styled.div`
     max-width: 780px;
@@ -15,39 +15,60 @@ export const Container = styled.div`
         flex-direction: row;
 
         svg {
-        margin-right: 10px;
+            margin-right: 10px;
         }
     }
-
-
 `;
 
 export const Form = styled.form`
-   margin-top: 30px;
-   display: flex;
-   flex-direction: row;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
 
-   input {
-       flex: 1;
-       border: 1px solid #eee;
-       padding: 10px 15px;
-       border-radius: 4px;
-       font-size: 16px;
-   }
+    input {
+        flex: 1;
+        border: 1px solid #eee;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-size: 16px;
+    }
 `;
 
-export const SubmnitBtn = styled.button.attrs({
-    type: "submit"
-})`
-   background-color: #7459c1;
-   border: 0;
-   padding: 0 15px;
-   margin-left: 10px;
-   border-radius: 4px;
+const rotate = keyframes`
 
-   display: flex;
-   justify-content: center;
-   align-items: center;
+     from {
+        transform: rotate(0deg);
+     }
+     to {
+        transform: rotate(360deg);
 
+     }
+`;
 
+export const SubmnitBtn = styled.button.attrs(props => ({
+    type: 'submit',
+    disabled: props.loading,
+}))`
+    background-color: #7459c1;
+    border: 0;
+    padding: 0 15px;
+    margin-left: 10px;
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    ${props =>
+        props.loading &&
+        css`
+            svg {
+                animation: ${rotate} 2s linear infinite;
+            }
+        `}
 `;
