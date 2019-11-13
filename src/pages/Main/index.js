@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 
 import api from '../../services/api';
 
-import { Container, Form, SubmnitBtn, List } from './styles';
+import Container from '../../components/Container';
+
+import { Form, SubmnitBtn, List } from './styles';
 
 function Main() {
     const [getRepo, setGetRepo] = useState('');
@@ -71,9 +75,15 @@ function Main() {
 
             <List>
                 {repoData.map(repository => (
-                    <li key={repository.name}>
+                    <li key={Date.now()}>
                         <span>{repository.name}</span>
-                        <a href="/#">Details</a>
+                        <Link
+                            to={`/repository/${encodeURIComponent(
+                                repository.name
+                            )}`}
+                        >
+                            Details
+                        </Link>
                     </li>
                 ))}
             </List>
